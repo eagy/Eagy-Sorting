@@ -27,6 +27,12 @@ public class EagySorting {
 		quicksortmid(c);
 		assert isSorted(c); // requires assertions enabled.
 		show(c);
+		
+		// Q2
+		Integer[] d = {4, 7, 3, 1, 5, 16, 9};
+		mergeSort(d);
+		assert isSorted(d);
+		show(d);
 
 		// Q2
 		String[] b = { "S", "0", "R", "T", "E", "X", "A", "M", "P", "L", "E" };
@@ -147,7 +153,10 @@ public class EagySorting {
 		data[index1] = data[index2];
 		data[index2] = temp;
 	}
-
+	
+	public static void mergesort(Comparable[]a ) {
+		mergeSort(a);
+	}
 	
     /**
 	 * Recursively sorts a range of objects in the specified array using the
@@ -155,32 +164,38 @@ public class EagySorting {
      *
      * @param a the array to be sorted
      */
-	private static void mergeSort(Comparable[] a)
+	private static Comparable[] mergeSort(Comparable[] a)
 	{
-		if (a.length > 0)
+		if (a.length > 1)
 		{
-			int mid = (a.length-1) / 2;
-			Comparable[] b = new Comparable[mid];
-			Comparable[] c = new Comparable[a.length-1-mid];
+			int mid = (a.length) / 2;
+			Comparable[] left = new Comparable[mid];
+			Comparable[] right = new Comparable[a.length-mid];
 			
 			for(int i = 0; i < mid; i++) {
-				b[i] = a[i];
+				left[i] = a[i];
 			}
 			
-			for(int i = 0; i < c.length; i++) {
-				c[i] = a[i+mid];
+			for(int i = 0; i < right.length; i++) {
+				right[i] = a[i+mid];
 			}
-			//mergeSort(data, min, mid);
-			//mergeSort(data, mid+1, max);
-			//merge(data, min, mid, max);
-			mergeSort(b);
-			mergeSort(c);
-			Comparable[] temp;
-			temp = merge(b,c);
-			for (int i = 0; i < temp.length; i++) {
-				a[i] = temp[i];
+
+			//System.out.println(Arrays.toString(a));
+			//System.out.println(Arrays.toString(b));
+			//System.out.println(Arrays.toString(c));
+			mergeSort(left);
+			mergeSort(right);
+
+			merge(left,right);
+			for(int i = 0; i < mid; i++) {
+				a[i] = left[i];
+			}
+			
+			for(int i = 0; i < right.length; i++) {
+				a[i+mid] = right[i];
 			}
 		}
+		return a;
 			
 	}
 	
@@ -194,6 +209,8 @@ public class EagySorting {
 	private static Comparable[] merge(Comparable[] a, Comparable[] b) {
 		int size = (a.length)+(b.length);
 		Comparable[] merged = new Comparable[size];
+		System.out.println(Arrays.toString(a));
+		System.out.println(Arrays.toString(b));
 
 		int aIndex = 0;
 		int bIndex = 0;
@@ -222,7 +239,7 @@ public class EagySorting {
 			index++;
 			bIndex++;
 		}
-		
+		System.out.println(Arrays.toString(merged));
 		return merged; 
 /*		T[] temp = (T[])(new Comparable[a.length]);
 		
