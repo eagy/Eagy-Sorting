@@ -155,14 +155,15 @@ public class EagySorting {
      *
      * @param a the array to be sorted
      */
-	private static void mergeSort(Comparable[] a)
+	private static Comparable[] mergeSort(Comparable[] a)
 	{
-		if (a.length > 0)
+		if (a.length > 1)
 		{
-			int mid = (a.length-1) / 2;
-			Comparable[] b = new Comparable[mid];
-			Comparable[] c = new Comparable[a.length-1-mid];
-			
+			int mid = (a.length) / 2;
+			Comparable[] b = Arrays.copyOfRange(a, 0, mid);// = new Comparable[mid];
+
+			Comparable[] c = Arrays.copyOfRange(a, mid, a.length);// = new Comparable[a.length-1-mid];
+			System.out.println(Arrays.toString(c));
 			for(int i = 0; i < mid; i++) {
 				b[i] = a[i];
 			}
@@ -170,17 +171,22 @@ public class EagySorting {
 			for(int i = 0; i < c.length; i++) {
 				c[i] = a[i+mid];
 			}
-			//mergeSort(data, min, mid);
-			//mergeSort(data, mid+1, max);
-			//merge(data, min, mid, max);
+			System.out.println(Arrays.toString(b));
 			mergeSort(b);
+			System.out.println(Arrays.toString(c));
 			mergeSort(c);
+
+			
 			Comparable[] temp;
 			temp = merge(b,c);
 			for (int i = 0; i < temp.length; i++) {
 				a[i] = temp[i];
 			}
+			
+			return a;
 		}
+		else
+			return a;
 			
 	}
 	
@@ -192,13 +198,9 @@ public class EagySorting {
      */
 	@SuppressWarnings("unchecked")
 	private static Comparable[] merge(Comparable[] a, Comparable[] b) {
-		int size = (a.length)+(b.length);
-		Comparable[] merged = new Comparable[size];
-
-		int aIndex = 0;
-		int bIndex = 0;
-		int index = 0;
 		
+		Comparable[] merged = new Comparable[a.length+b.length];
+		int aIndex = 0, bIndex = 0, index = 0;
 		while (aIndex < a.length && bIndex < b.length) {
 			if (a[aIndex].compareTo(b[bIndex]) < 0) {
 				merged[index] = a[aIndex];
@@ -223,49 +225,8 @@ public class EagySorting {
 			bIndex++;
 		}
 		
+		System.out.println(Arrays.toString(merged));
 		return merged; 
-/*		T[] temp = (T[])(new Comparable[a.length]);
-		
-		int first1 = first, last1 = mid;  // endpoints of first subarray
-		int first2 = mid+1, last2 = last;  // endpoints of second subarray
-		int index = first1;  // next index open in temp array
-		
-		//  Copy smaller item from each subarray into temp until one
-		//  of the subarrays is exhausted
-		while (first1 <= last1 && first2 <= last2)
-		{
-			if (a[first1].compareTo(a[first2]) < 0)
-			{
-				temp[index] = a[first1];
-				first1++;
-			}
-			else
-			{
-				temp[index] = a[first2];
-				first2++;
-			}
-			index++;
-		}
-		
-		//  Copy remaining elements from first subarray, if any
-		while (first1 <= last1)
-		{
-			temp[index] = a[first1];
-			first1++;
-			index++;
-		}
-		
-		//  Copy remaining elements from second subarray, if any
-		while (first2 <= last2)
-		{
-			temp[index] = a[first2];
-			first2++;
-			index++;
-		}
-		
-		//  Copy merged data into original array
-		for (index = first; index <= last; index++)
-			a[index] = temp[index];*/
    }
 
 	/**
