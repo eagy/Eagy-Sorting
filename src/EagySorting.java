@@ -3,8 +3,8 @@ import java.util.Arrays;
 /**
  * Implements various sorting algorithms.
  * 
- * @author (your name), Acuna, Sedgewick
- * @verison (version)
+ * @author Daniel Eagy, Acuna, Sedgewick
+ * @verison 1.0 
  */
 
 public class EagySorting {
@@ -17,22 +17,118 @@ public class EagySorting {
 	 */
 	public static void main(String[] args) {
 		// Q1
-		String[] a = { "O", "S", "R", "T", "E", "X", "A", "M", "P", "L", "E" };
+		String[] a = { "S", "O", "R", "T", "E", "X", "A", "M", "P", "L", "E" };
 		quicksortmid(a);
 		assert isSorted(a); // requires assertions enabled.
 		show(a);
 
-		// Q1
-		Integer[] c = { 4, 7, 3, 1, 5, 16, 9 };
-		quicksortmid(c);
-		assert isSorted(c); // requires assertions enabled.
-		show(c);
-
 		// Q2
-		String[] b = { "S", "0", "R", "T", "E", "X", "A", "M", "P", "L", "E" };
+		String[] b = { "S", "O", "R", "T", "E", "X", "A", "M", "P", "L", "E" };
 		mergeSort(b);
 		assert isSorted(b);
 		show(b);
+		
+		// TESTING //
+
+		// Test 1: Already Sorted (quicksort)
+		Integer[] test1 = {1,2,3,4,5,6,7,8,9,10};
+		System.out.println("Test 1: Already Sorted (quicksort)");
+		System.out.print("Before: ");
+		show(test1);
+		quicksortmid(test1);
+		assert isSorted(test1);
+		System.out.print("After: ");
+		show(test1);
+		
+		// Test 1: Already Sorted  (mergesort)
+		test1 = new Integer[] {1,2,3,4,5,6,7,8,9,10};
+		System.out.println("Test 1: Already Sorted  (mergesort)");
+		System.out.print("Before: ");
+		show(test1);
+		mergesort(test1);
+		assert isSorted(test1);
+		System.out.print("After: ");
+		show(test1);
+		
+		// Test 2: Mostly Sorted (quicksort)
+		Integer[] test2 = {1,2,3,4,5,6,7,9,8,10};
+		System.out.println("Test 2: Mostly Sorted (quicksort)");
+		System.out.print("Before: ");
+		show(test2);
+		quicksortmid(test2);
+		assert isSorted(test2);
+		System.out.print("After: ");
+		show(test2);
+		
+		// Test 2: Mostly Sorted (mergesort)
+		test2 = new Integer [] {1,2,3,4,5,6,7,9,8,10};
+		System.out.println("Tetst 2: Mostly Sorted (mergesort)");
+		System.out.print("Before: ");
+		show(test2);
+		mergesort(test2);
+		assert isSorted(test2);
+		System.out.print("After: ");
+		show(test2);
+		
+		// Test 3: Random Order (quicksort)
+		Integer[] test3 = {4, 7, 5, 9, 1, 8, 3, 10, 2, 6}; 
+		System.out.println("Test 3: Random Order (quicksort)");
+		System.out.print("Before: ");
+		show(test3);
+		quicksortmid(test3);
+		assert isSorted(test3);
+		System.out.print("After: ");
+		show(test3);
+		
+		// Test 3: Random Order (mergesort)
+		test3 = new Integer[] {4, 7, 5, 9, 1, 8, 3, 10, 2, 6}; 
+		System.out.println("Test 3: Random Order (mergesort)");
+		System.out.print("Before: ");
+		show(test3);
+		mergesort(test3);
+		assert isSorted(test3);
+		System.out.print("After: ");
+		show(test3);
+		
+		// Test 4: Has Duplicates (quicksort)
+		Integer[] test4 = {1, 2, 3, 6, 6, 5, 7, 10, 9};
+		System.out.println("Test 4: Has Duplicates (quicksort)");
+		System.out.print("Before: ");
+		show(test4);
+		quicksortmid(test4);
+		assert isSorted(test4);
+		System.out.print("After: ");
+		show(test4);
+		
+		// Test 4: Has Duplicates (mergesort)
+		test4 = new Integer[] {1, 2, 3, 6, 6, 5, 7, 10, 9};
+		System.out.println("Test 4: Has Duplicates (mergesort)");
+		System.out.print("Before: ");
+		show(test4);
+		mergesort(test4);
+		assert isSorted(test4);
+		System.out.print("After: ");
+		show(test4);
+		
+		// Test 5: Reversed Order (quicksort)
+		Integer[] test5 = {10,9,8,7,6,5,4,3,2,1};
+		System.out.println("Test 5: Reversed Order (quicksort)");
+		System.out.print("Before: ");
+		show(test5);
+		quicksortmid(test5);
+		assert isSorted(test5);
+		System.out.print("After: ");
+		show(test5);
+		
+		// Test 5: Has Duplicates (mergesort)
+		test5 = new Integer[] {10,9,8,7,6,5,4,3,2,1};
+		System.out.println("Test 5: Reversed Order (mergesort)");
+		System.out.print("Before: ");
+		show(test5);
+		mergesort(test5);
+		assert isSorted(test5);
+		System.out.print("After: ");
+		show(test5);
 	}
 
 	public static <T extends Comparable<T>> void quicksortmid(T[] a) {
@@ -147,7 +243,9 @@ public class EagySorting {
 		data[index1] = data[index2];
 		data[index2] = temp;
 	}
-
+	public static void mergesort(Comparable[] a) {
+		a = mergeSort(a);
+	}
 	
     /**
 	 * Recursively sorts a range of objects in the specified array using the
@@ -155,15 +253,13 @@ public class EagySorting {
      *
      * @param a the array to be sorted
      */
-	private static Comparable[] mergeSort(Comparable[] a)
-	{
+	private static Comparable[] mergeSort(Comparable[] a) {
 		if (a.length > 1)
 		{
 			int mid = (a.length) / 2;
-			Comparable[] b = Arrays.copyOfRange(a, 0, mid);// = new Comparable[mid];
-
-			Comparable[] c = Arrays.copyOfRange(a, mid, a.length);// = new Comparable[a.length-1-mid];
-			System.out.println(Arrays.toString(c));
+			Comparable[] b = Arrays.copyOfRange(a, 0, mid);
+			Comparable[] c = Arrays.copyOfRange(a, mid, a.length);
+						
 			for(int i = 0; i < mid; i++) {
 				b[i] = a[i];
 			}
@@ -171,9 +267,8 @@ public class EagySorting {
 			for(int i = 0; i < c.length; i++) {
 				c[i] = a[i+mid];
 			}
-			System.out.println(Arrays.toString(b));
+
 			mergeSort(b);
-			System.out.println(Arrays.toString(c));
 			mergeSort(c);
 
 			
@@ -224,8 +319,6 @@ public class EagySorting {
 			index++;
 			bIndex++;
 		}
-		
-		System.out.println(Arrays.toString(merged));
 		return merged; 
    }
 

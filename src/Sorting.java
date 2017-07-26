@@ -69,6 +69,7 @@ public class Sorting
             }
 			
             data[position] = key;
+            System.out.println(Arrays.toString(data));
         }
     }
 	
